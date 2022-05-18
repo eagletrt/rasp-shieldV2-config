@@ -1,6 +1,6 @@
 # Instructions
 
-	git clone <REPO_ADDRESS>
+	git clone <THIS_INCREDIBLE_REPO>
 	git submodule update --init
 
 ## CAN Interfaces
