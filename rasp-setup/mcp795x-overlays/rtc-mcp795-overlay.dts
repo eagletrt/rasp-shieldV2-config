@@ -1,0 +1,36 @@
+/*
+ * MCP795xx RTC device tree overlay for SPI devices
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        compatible = "brcm,bcm2711";
+
+        fragment@0 {
+                target = <&spidev0>;
+                __overlay__ {
+                        status = "disabled";
+                };
+        };
+
+        fragment@1 {
+                target = <&spi1>;
+                __overlay__ {  
+                        status = "okay";
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+
+                        rtc_00: rtc@0 {
+                                reg = <0x0>;
+                                compatible = "maxim,mcp795";
+                                spi-max-frequency = <500000>;
+                        };
+                };
+        };
+
+        __overrides__ {
+                speed = <&rtc_00>, "spi-max-frequency:0";
+        };
+};

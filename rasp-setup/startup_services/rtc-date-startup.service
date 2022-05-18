@@ -1,0 +1,11 @@
+[Unit]
+Description=Synchronize system time with hw clock time at startup
+After=multi-user.target
+
+[Service]
+User=root
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "busybox hwclock -f /dev/rtc0 -s && echo 'Date set from hardware rtc' > /dev/kmsg"
+[Install]
+WantedBy=multi-user.target
