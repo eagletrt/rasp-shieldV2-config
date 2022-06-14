@@ -53,8 +53,8 @@
             /* needed to avoid dtc warning */
             #address-cells = <1>;
             #size-cells = <0>;
-            can0: mcp2515@1 {	 /* don't know why must be 1 for spi0.0 */
-                reg = <1>;	 /* " */
+            can0: mcp2515@0 {
+                reg = <0>;
                 compatible = "microchip,mcp2515";
                 pinctrl-names = "default";
                 pinctrl-0 = <&can0_pins>;
