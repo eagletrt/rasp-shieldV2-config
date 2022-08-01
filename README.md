@@ -47,6 +47,7 @@ NOTE:
 Install requirements:
 
 	sudo apt update && sudo apt upgrade
+	sudo apt install build-essential linux-source libncurses5-dev
 	uname -a #check kernel version
 	sudo apt install raspberrypi-kernel-headers #MUST BE THE SAME VERSION AS THE KERNEL
 	sudo rpi-update
