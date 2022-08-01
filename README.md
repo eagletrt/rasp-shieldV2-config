@@ -48,7 +48,7 @@ Install requirements:
 
 	sudo apt update && sudo apt upgrade
 	uname -a #check kernel version
-	sudo apt install raspberry-kernel-headers=<your_kernel_version> #MUST BE THE SAME VERSION AS THE KERNEL
+	sudo apt install raspberrypi-kernel-headers=<your_kernel_version> #MUST BE THE SAME VERSION AS THE KERNEL
 	sudo rpi-update
 	sudo reboot
 
