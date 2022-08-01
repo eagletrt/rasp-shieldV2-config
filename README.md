@@ -52,11 +52,14 @@ Install requirements:
 	sudo rpi-update
 	sudo reboot
 
+**Probably not needed**
 Clone Linux kernel in order to compile modules:
 
 	cd /usr/src/
 	git clone https://github.com/raspberrypi/linux.git #MUST BE SAME VERSION OF LINUX HEADERS
-	
+
+**END not needed**
+
 Check if you have the version under /lib/modules/:
 
 	ls /lib/modules/<your_kernel_version>
@@ -70,6 +73,13 @@ Return to the repo folder and compile:
 
 	cd mcp795x-module/rtc-tollsimy-mod/
 	sudo make -C /lib/modules/<your_kernel_version>/build M=<path_to_the_repo>/mcp795x-module/rtc-tollsimy-mod/ modules
+
+If you get this error: `make: *** No rule to make target 'modules'.  Stop.` , do:
+
+	ln -s /usr/src/linux-headers-<last_working_version> /lib/modules/<your_kernel_version>/build
+	ln -s /usr/src/linux-headers-<last_working_version> /lib/modules/<your_kernel_version>/source
+
+**NOTE: Ideally, the Linux Headers version should be the same as the Kernel version**
 
 Copy compiled module to /lib/modules/<your_kernel_version> and load it:
 
