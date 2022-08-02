@@ -53,10 +53,8 @@ Install requirements:
 	sudo rpi-update
 	sudo reboot
 
-Clone Linux kernel in order to compile modules:
-
-	cd /usr/src/
-	git clone --depth=1 https://github.com/raspberrypi/linux.git #MUST BE SAME VERSION OF LINUX HEADERS
+If you don't have the correct kernel sources in `/usr/src/`:
+Clone Linux kernel sources `/usr/src/`, you can find them on kernel.org (e.g. for 5.15.56: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v5.15.56&id=760adb59f6211e157dd587927ac26c42abc81550).
 
 Check if you have the version under /lib/modules/:
 
@@ -66,8 +64,15 @@ Copy last `.config` compilation file in new kernel headers:
 
 	cp /usr/src/<previous_working_version>/.config /lib/modules/<your_kernel_version>/
 
-Uncomment line `RTC_DRV_MCP795` with a text editor. </br>
-Return to the repo folder and compile:
+Uncomment line `RTC_DRV_MCP795` with a text editor.
+
+Next unzip the downloaded file and compile the extracted files (it can take REALLY long time):
+	
+	tar -xf linux-5.xx.xx.tar.gz
+	cd linux-5.xx.xx
+	sudo make mrproper && sudo make oldconfig && sudo make prepare && sudo make scripts
+	
+Return to the repo folder and compile the MCP795 module:
 
 	cd mcp795x-module/rtc-tollsimy-mod/
 	sudo make -C /lib/modules/<your_kernel_version>/build M=<path_to_the_repo>/mcp795x-module/rtc-tollsimy-mod/ modules
