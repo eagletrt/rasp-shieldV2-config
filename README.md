@@ -71,6 +71,7 @@ Next unzip the downloaded file and compile the extracted files (it can take REAL
 	tar -xf linux-5.xx.xx.tar.gz
 	cd linux-5.xx.xx
 	sudo make mrproper && sudo make oldconfig && sudo make prepare && sudo make scripts
+	sudo make -C /lib/modules/<your_kernel_version>/build modules
 	
 Return to the repo folder and compile the MCP795 module:
 
