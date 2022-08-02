@@ -56,7 +56,7 @@ Install requirements:
 Clone Linux kernel in order to compile modules:
 
 	cd /usr/src/
-	git clone https://github.com/raspberrypi/linux.git #MUST BE SAME VERSION OF LINUX HEADERS
+	git clone --depth=1 https://github.com/raspberrypi/linux.git #MUST BE SAME VERSION OF LINUX HEADERS
 
 Check if you have the version under /lib/modules/:
 
