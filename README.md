@@ -21,7 +21,7 @@ Compile mcp2515 overlays:
 Overwrite boot config:
 
 	cd ..
-	sudo cp config.txt /boot/config.txt
+	sudo cp config.txt /boot/firmware/config.txt
 
 Copy and start CAN services:
 
