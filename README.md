@@ -4,9 +4,6 @@
 	git submodule update --init
 
 ## CAN Interfaces
-
-	cd rasp-setup
-
 Install dependencies:
 
 	sudo apt install device-tree-compiler
@@ -15,21 +12,20 @@ Install dependencies:
 Compile mcp2515 overlays:
 
     cd mcp2515-overlays
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can0.dtbo mcp2515-can0-overlay.dts
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can1.dtbo mcp2515-can1-overlay.dts
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can2.dtbo mcp2515-can2-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can0.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can0-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can1.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can1-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can2.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can2-overlay.dts
 
 Overwrite boot config:
 
-	cd ..
-	sudo cp config.txt /boot/firmware/config.txt
+	sudo cp rasp-shieldv2-config/config.txt /boot/firmware/config.txt
 
 Copy and start CAN services:
 
-	sudo cp startup_services/* /etc/systemd/system/
+	sudo cp rasp-shieldv2-config/startup_services/* /etc/systemd/system/
 	sudo systemctl enable can0_startup.service
 	sudo systemctl enable can1_startup.service
-	sudo systemctl enable can1_startup.service
+	sudo systemctl enable can2_startup.service
 	sudo reboot
 
 Check if CAN interfaces are working:
