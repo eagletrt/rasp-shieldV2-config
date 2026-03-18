@@ -29,6 +29,7 @@ Copy and start CAN services:
 	sudo cp startup_services/* /etc/systemd/system/
 	sudo systemctl enable can0_startup.service
 	sudo systemctl enable can1_startup.service
+	sudo systemctl enable can1_startup.service
 	sudo reboot
 
 Check if CAN interfaces are working:

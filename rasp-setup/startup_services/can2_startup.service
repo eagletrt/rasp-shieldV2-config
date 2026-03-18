@@ -1,0 +1,12 @@
+[Unit]
+Description=Setup SocketCAN interface can2 with a baudrate of 1000000
+After=multi-user.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/usr/sbin/ip link set can2 up type can bitrate 1000000
+ExecStart=sudo ip link set can2 txqueuelen 1000
+
+[Install]
+WantedBy=multi-user.target

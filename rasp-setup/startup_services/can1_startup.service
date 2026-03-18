@@ -6,7 +6,7 @@ After=multi-user.target
 Type=oneshot
 RemainAfterExit=yes
 ExecStartPre=/usr/sbin/ip link set can1 up type can bitrate 1000000
-ExecStart=sudo ifconfig can1 txqueuelen 1000
+ExecStart=sudo ip link set can1 txqueuelen 1000
 
 [Install]
 WantedBy=multi-user.target
