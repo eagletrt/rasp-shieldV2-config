@@ -32,9 +32,10 @@ Check if CAN interfaces are working:
 
 	ls /sys/bus/devices/spi0.0/net
 	ls /sys/bus/devices/spi0.1/net
+	ls /sys/bus/devices/spi1.0/net
 
 you should see "can0" and "can1" respecively.</br>
-Anyway, `ifconfig -a` should show "can0" and "can1" interfaces.
+Anyway, `ip a` should show "can0" and "can1" interfaces.
 
 NOTE:
 - you can use `cansend` and `candump` commands to respectively send and dump data respectively to and from CAN bus.

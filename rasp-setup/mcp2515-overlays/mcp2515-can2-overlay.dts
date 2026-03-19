@@ -1,5 +1,5 @@
 /*
- * Device tree overlay for mcp251x/can2 on spi1.2 edited by petit_miner
+ * Device tree overlay for mcp251x/can2 on spi1.0 edited by petit_miner
  */
 
 /dts-v1/;
@@ -7,7 +7,7 @@
 
 / {
     compatible = "brcm,bcm2711";
-    /* disable spi-dev for spi1.2 */
+    /* disable spi-dev for spi1.0 */
     fragment@0 {
         target = <&spi1>;
         __overlay__ {
@@ -37,7 +37,7 @@
     fragment@3 {
         target-path = "/";
         __overlay__ {
-            /* external oscillator of mcp2515 on spi1.2 */
+            /* external oscillator of mcp2515 on spi1.0 */
             can2_osc: can2_osc {
                 compatible = "fixed-clock";
                 #clock-cells = <0>;
