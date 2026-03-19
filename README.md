@@ -11,9 +11,10 @@ Install dependencies:
 
 Compile mcp2515 overlays:
 
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can0.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can0-overlay.dts
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can1.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can1-overlay.dts
-	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can2.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-can2-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can0.dtbo rasp-shieldV2-config/rasp-setup/mcp2515-overlays/mcp2515-can0-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can1.dtbo rasp-shieldV2-config/rasp-setup/mcp2515-overlays/mcp2515-can1-overlay.dts
+	sudo dtc -@ -Hepapr -I dts -O dtb -o /boot/overlays/mcp2515-can2.dtbo rasp-shieldv2-config/rasp-setup/mcp2515-overlays/mcp2515-can2-overlay.dts
+
 Overwrite boot config:
 
 	sudo cp rasp-shieldv2-config/config.txt /boot/firmware/config.txt
