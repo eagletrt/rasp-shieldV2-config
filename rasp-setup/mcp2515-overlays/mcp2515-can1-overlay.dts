@@ -1,5 +1,5 @@
 /*
- * Device tree overlay for mcp251x/can0 on spi0.0
+ * Device tree overlay for mcp251x/can1 on spi0.1 edited by petit_miner
  */
 
 /dts-v1/;
@@ -7,7 +7,7 @@
 
 / {
     compatible = "brcm,bcm2711";
-    /* disable spi-dev for spi0.0 */
+    /* disable spi-dev for spi0.1 */
     fragment@0 {
         target = <&spi0>;
         __overlay__ {
@@ -16,7 +16,7 @@
     };
 
     fragment@1 {
-	target = <&spidev0>;
+	target = <&spidev1>;
 	__overlay__ {
 	    status = "disabled";
 	};
@@ -26,8 +26,8 @@
     fragment@2 {
         target = <&gpio>;
         __overlay__ {
-            can0_pins: can0_pins {
-                brcm,pins = <25>; /* default pin, it will be overriden */
+            can1_pins: can1_pins {
+                brcm,pins = <24>; /* default pin, it will be overriden */
                 brcm,function = <0>; /* input */
             };
         };
@@ -37,11 +37,11 @@
     fragment@3 {
         target-path = "/";
         __overlay__ {
-            /* external oscillator of mcp2515 on SPI0.0 */
-            can0_osc: can0_osc {
+            /* external oscillator of mcp2515 on spi0.1 */
+            can1_osc: can1_osc {
                 compatible = "fixed-clock";
                 #clock-cells = <0>;
-                clock-frequency  = <16000000>; /* default ext clock speed, it will be overriden" */
+                clock-frequency  = <16000000>; /* default ext clock speed, it will be overriden */
             };
         };
     };
@@ -53,21 +53,21 @@
             /* needed to avoid dtc warning */
             #address-cells = <1>;
             #size-cells = <0>;
-            can0: mcp2515@0 {
-                reg = <0>;
+            can1: mcp2515@1 {
+                reg = <1>;
                 compatible = "microchip,mcp2515";
                 pinctrl-names = "default";
-                pinctrl-0 = <&can0_pins>;
+                pinctrl-0 = <&can1_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
                 interrupts = <25 8>; /* IRQ_TYPE_LEVEL_LOW */
-                clocks = <&can0_osc>;
+                clocks = <&can1_osc>;
             };
         };
     };
     __overrides__ {
-        oscillator = <&can0_osc>,"clock-frequency:0";
-        spimaxfrequency = <&can0>,"spi-max-frequency:0";
-        interrupt = <&can0_pins>,"brcm,pins:0",<&can0>,"interrupts:0";
+        oscillator = <&can1_osc>,"clock-frequency:0";
+        spimaxfrequency = <&can1>,"spi-max-frequency:0";
+        interrupt = <&can1_pins>,"brcm,pins:0",<&can1>,"interrupts:0";
     };
 };
