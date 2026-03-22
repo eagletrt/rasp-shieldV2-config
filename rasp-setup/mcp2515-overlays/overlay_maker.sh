@@ -2,13 +2,20 @@
 # This script is used to create the overlay files for the MCP2515 CAN controller.
 # It takes as input the spi and the interrupt pins and generates the overlay files accordingly.
 
-can_interface=can0
-spi_num=0
-chip_select=0
-spi="spi${spi_num}.${chip_select}"
-interrupt_num=25
-filename="mcp2515-${can_interface}-overlay.dts"
+if [ "$#" -ne 4 ]; then
+    echo "Error: Invalid number of arguments."
+    echo "Usage: $0 <can_interface> <spi_num> <chip_select> <interrupt_num>"
+    echo "Example: $0 can0 0 0 25"
+    exit 1
+fi
 
+can_interface=$1
+spi=$2
+chip_select=$3
+interrupt_num=$4
+
+spi="spi${spi_num}.${chip_select}"
+filename="mcp2515-${can_interface}-overlay.dts"
 file_content="/*
  * Device tree overlay for mcp251x/${can_interface} on ${spi}
  */
