@@ -9,8 +9,7 @@ spi="spi${spi_num}.${chip_select}"
 interrupt=gpio25
 filename="mcp2515-${can_interface}-overlay.dts"
 
-file_content="
-/*
+file_content="/*
  * Device tree overlay for mcp251x/${can_interface} on ${spi}
  */
 
@@ -18,19 +17,19 @@ file_content="
 /plugin/;
 
 / {
-    compatible = "brcm,bcm2711";
+    compatible = \"brcm,bcm2711\";
     /* disable spi-dev for ${spi} */
     fragment@0 {
         target = <&spi${spi_num}>;
         __overlay__ {
-            status = "okay";
+            status = \"okay\";
         };
     };
 
     fragment@1 {
 	target = <&spidev${spi_num}>;
 	__overlay__ {
-	    status = "disabled";
+	    status = \"disabled\";
 	};
     };
 
@@ -47,13 +46,13 @@ file_content="
 
     /* the clock/oscillator of the can-controller */
     fragment@3 {
-        target-path = "/";
+        target-path = \"/\";
         __overlay__ {
-            /* external oscillator of mcp2515 on ${spi} */
+            /* external oscillator of mcp2515 on SPI${spi_num}.${chip_select} */
             ${can_interface}_osc: ${can_interface}_osc {
-                compatible = "fixed-clock";
+                compatible = \"fixed-clock\";
                 #clock-cells = <0>;
-                clock-frequency  = <16000000>; /* default ext clock speed, it will be overriden" '*/
+                clock-frequency  = <16000000>; /* default ext clock speed, it will be overridden */
             };
         };
     };
@@ -67,8 +66,8 @@ file_content="
             #size-cells = <0>;
             ${can_interface}: mcp2515@0 {
                 reg = <0>;
-                compatible = "microchip,mcp2515";
-                pinctrl-names = "default";
+                compatible = \"microchip,mcp2515\";
+                pinctrl-names = \"default\";
                 pinctrl-0 = <&${can_interface}_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
@@ -78,10 +77,11 @@ file_content="
         };
     };
     __overrides__ {
-        oscillator = <&${can_interface}_osc>,"clock-frequency:0";
-        spimaxfrequency = <&${can_interface}>,"spi-max-frequency:0";
-        interrupt = <&${can_interface}_pins>,"brcm,pins:0",<&${can_interface}>,"interrupts:0";
+        oscillator = <&${can_interface}_osc>,\"clock-frequency:0\";
+        spimaxfrequency = <&${can_interface}>,\"spi-max-frequency:0\";
+        interrupt = <&${can_interface}_pins>,\"brcm,pins:0\",<&${can_interface}>,\"interrupts:0\";
     };
-};
-"
+};"
+
+echo "$file_content" > $filename
 
