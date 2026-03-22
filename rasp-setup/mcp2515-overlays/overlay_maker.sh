@@ -6,7 +6,7 @@ can_interface=can0
 spi_num=0
 chip_select=0
 spi="spi${spi_num}.${chip_select}"
-interrupt=gpio25
+interrupt_num=25
 filename="mcp2515-${can_interface}-overlay.dts"
 
 file_content="/*
@@ -27,7 +27,7 @@ file_content="/*
     };
 
     fragment@1 {
-	target = <&spidev${spi_num}>;
+	target = <&spidev${chip_select}>;
 	__overlay__ {
 	    status = \"disabled\";
 	};
@@ -38,7 +38,7 @@ file_content="/*
         target = <&gpio>;
         __overlay__ {
             ${can_interface}_pins: ${can_interface}_pins {
-                brcm,pins = <25>; /* default pin, it will be overriden */
+                brcm,pins = <${interrupt_num}>; /* default pin, it will be overriden */
                 brcm,function = <0>; /* input */
             };
         };
@@ -48,7 +48,7 @@ file_content="/*
     fragment@3 {
         target-path = \"/\";
         __overlay__ {
-            /* external oscillator of mcp2515 on SPI${spi_num}.${chip_select} */
+            /* external oscillator of mcp2515 on ${spi} */
             ${can_interface}_osc: ${can_interface}_osc {
                 compatible = \"fixed-clock\";
                 #clock-cells = <0>;
@@ -64,14 +64,14 @@ file_content="/*
             /* needed to avoid dtc warning */
             #address-cells = <1>;
             #size-cells = <0>;
-            ${can_interface}: mcp2515@0 {
-                reg = <0>;
+            ${can_interface}: mcp2515@${chip_select} {
+                reg = <${chip_select}>;
                 compatible = \"microchip,mcp2515\";
                 pinctrl-names = \"default\";
                 pinctrl-0 = <&${can_interface}_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
-                interrupts = <25 8>; /* IRQ_TYPE_LEVEL_LOW */
+                interrupts = <${interrupt_num} 8>; /* IRQ_TYPE_LEVEL_LOW */
                 clocks = <&${can_interface}_osc>;
             };
         };
