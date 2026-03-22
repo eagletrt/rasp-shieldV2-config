@@ -1,5 +1,5 @@
 /*
- * Device tree overlay for mcp251x/can2 on spi1.0 edited by petit_miner
+ * Device tree overlay for mcp251x/can2 on spi1.0
  */
 
 /dts-v1/;
@@ -16,7 +16,7 @@
     };
 
     fragment@1 {
-	target = <&spidev2>;
+	target = <&spidev0>;
 	__overlay__ {
 	    status = "disabled";
 	};
@@ -27,7 +27,7 @@
         target = <&gpio>;
         __overlay__ {
             can2_pins: can2_pins {
-                brcm,pins = <24>; /* default pin, it will be overriden */
+                brcm,pins = <23>; /* default pin, it will be overriden */
                 brcm,function = <0>; /* input */
             };
         };
@@ -41,7 +41,7 @@
             can2_osc: can2_osc {
                 compatible = "fixed-clock";
                 #clock-cells = <0>;
-                clock-frequency  = <16000000>; /* default ext clock speed, it will be overriden */
+                clock-frequency  = <16000000>; /* default ext clock speed, it will be overridden */
             };
         };
     };
@@ -53,14 +53,14 @@
             /* needed to avoid dtc warning */
             #address-cells = <1>;
             #size-cells = <0>;
-            can2: mcp2515@2 {
-                reg = <2>;
+            can2: mcp2515@0 {
+                reg = <0>;
                 compatible = "microchip,mcp2515";
                 pinctrl-names = "default";
                 pinctrl-0 = <&can2_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
-                interrupts = <25 8>; /* IRQ_TYPE_LEVEL_LOW */
+                interrupts = <23 8>; /* IRQ_TYPE_LEVEL_LOW */
                 clocks = <&can2_osc>;
             };
         };

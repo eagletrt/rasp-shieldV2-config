@@ -1,5 +1,5 @@
 /*
- * Device tree overlay for mcp251x/can1 on spi.1
+ * Device tree overlay for mcp251x/can1 on spi0.1
  */
 
 /dts-v1/;
@@ -7,9 +7,9 @@
 
 / {
     compatible = "brcm,bcm2711";
-    /* disable spi-dev for spi.1 */
+    /* disable spi-dev for spi0.1 */
     fragment@0 {
-        target = <&spi>;
+        target = <&spi0>;
         __overlay__ {
             status = "okay";
         };
@@ -37,7 +37,7 @@
     fragment@3 {
         target-path = "/";
         __overlay__ {
-            /* external oscillator of mcp2515 on spi.1 */
+            /* external oscillator of mcp2515 on spi0.1 */
             can1_osc: can1_osc {
                 compatible = "fixed-clock";
                 #clock-cells = <0>;
@@ -48,7 +48,7 @@
 
     /* the spi config of the can-controller itself binding everything together */
     fragment@4 {
-        target = <&spi>;
+        target = <&spi0>;
         __overlay__ {
             /* needed to avoid dtc warning */
             #address-cells = <1>;

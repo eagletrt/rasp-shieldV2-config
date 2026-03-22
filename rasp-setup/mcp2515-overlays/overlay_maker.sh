@@ -10,7 +10,7 @@ if [ "$#" -ne 4 ]; then
 fi
 
 can_interface=$1
-spi=$2
+spi_num=$2
 chip_select=$3
 interrupt_num=$4
 
