@@ -60,7 +60,7 @@
                 pinctrl-0 = <&can1_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
-                interrupts = <24 8>; /* IRQ_TYPE_LEVEL_LOW */
+                interrupts = <25 8>; /* IRQ_TYPE_LEVEL_LOW */
                 clocks = <&can1_osc>;
             };
         };

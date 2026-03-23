@@ -78,7 +78,7 @@ file_content="/*
                 pinctrl-0 = <&${can_interface}_pins>;
                 spi-max-frequency = <10000000>;
                 interrupt-parent = <&gpio>;
-                interrupts = <${interrupt_num} 8>; /* IRQ_TYPE_LEVEL_LOW */
+                interrupts = <25 8>; /* IRQ_TYPE_LEVEL_LOW */
                 clocks = <&${can_interface}_osc>;
             };
         };
