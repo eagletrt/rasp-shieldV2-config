@@ -8,29 +8,41 @@ config_file="config.txt"
 # spi=spi{spi_num}.{chip_select} e.g. spi0.0, spi0.1, spi1.0, spi1.1
 # interrupt_num is the GPIO pin number used for the interrupt of the can controller, e.g. gpio25 -> 25
 
-# CAN 0 Config
-can_interface="can0"
-spi_num=0
-chip_select=0
-gpio_interrupt=25
-can0_config="$can_interface $spi_num $chip_select $gpio_interrupt"
+if [ ${#@} -ne 0 ] && [ $((${#@} % 4)) -eq 0 ]; then
+    i=1
+    while [ $i -le ${#@} ]; do
+        eval "can_interface=\${$i}"
+        eval "spi_num=\${$((i + 1))}"
+        eval "chip_select=\${$((i + 2))}"
+        eval "gpio_interrupt=\${$((i + 3))}"
+        can_configs+=("$can_interface $spi_num $chip_select $gpio_interrupt")
+        i=$((i + 4))
+    done
+else
+    # CAN 0 Config
+    can_interface="can0"
+    spi_num=0
+    chip_select=0
+    gpio_interrupt=25
+    can0_config="$can_interface $spi_num $chip_select $gpio_interrupt"
 
-# CAN 1 Config
-can_interface="can1"
-spi_num=0
-chip_select=1
-gpio_interrupt=24
-can1_config="$can_interface $spi_num $chip_select $gpio_interrupt"
+    # CAN 1 Config
+    can_interface="can1"
+    spi_num=0
+    chip_select=1
+    gpio_interrupt=24
+    can1_config="$can_interface $spi_num $chip_select $gpio_interrupt"
 
-# CAN 2 Config
-can_interface="can2"
-spi_num=1
-chip_select=0
-gpio_interrupt=23
-can2_config="$can_interface $spi_num $chip_select $gpio_interrupt"
+    # CAN 2 Config
+    can_interface="can2"
+    spi_num=1
+    chip_select=0
+    gpio_interrupt=23
+    can2_config="$can_interface $spi_num $chip_select $gpio_interrupt"
 
-# CAN Configs Array
-can_configs=("$can0_config" "$can1_config" "$can2_config")
+    # CAN Configs Array
+    can_configs=("$can0_config" "$can1_config" "$can2_config")
+fi
 
 cd mcp2515-overlays
 if [ $? -ne 0 ]; then
