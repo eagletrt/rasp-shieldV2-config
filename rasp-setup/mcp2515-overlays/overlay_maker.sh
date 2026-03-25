@@ -8,14 +8,16 @@ if [ "$#" -ne 4 ]; then
     echo "Example: $0 can0 0 0 25"
     exit 1
 fi
-
+# Parameters to create the overlay file
 can_interface=$1
 spi_num=$2
 chip_select=$3
 interrupt_num=$4
-
+# SPI interface format: spi{spi_num}.{chip_select} e.g. spi0.0, spi0.1, spi1.0, spi1.1
 spi="spi${spi_num}.${chip_select}"
+# GPIO pin number used for the interrupt of the can controller, e.g. gpio25 -> 25
 filename="mcp2515-${can_interface}-overlay.dts"
+# Create the overlay file content
 file_content="/*
  * Device tree overlay for mcp251x/${can_interface} on ${spi}
  */
@@ -89,6 +91,6 @@ file_content="/*
         interrupt = <&${can_interface}_pins>,\"brcm,pins:0\",<&${can_interface}>,\"interrupts:0\";
     };
 };"
-
+# Overwrite the overlay content to the file
 echo "$file_content" > $filename
 

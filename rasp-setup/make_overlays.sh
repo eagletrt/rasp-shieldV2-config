@@ -123,7 +123,7 @@ if [ $? -ne 0 ]; then
     echo "Error: Could not write base config to $config_file."
     exit 1
 fi
-# dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
+# Append the overlay configs for each CAN interface to the config file
 for conf in "${can_configs[@]}"; do
     overlay="dtoverlay=mcp2515-${conf%% *},oscillator=16000000,interrupt=${conf##* }"
     echo "$overlay" >> $config_file
